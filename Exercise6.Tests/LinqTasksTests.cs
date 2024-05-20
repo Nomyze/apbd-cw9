@@ -132,9 +132,11 @@ namespace Exercise6.Tests
                 Salary = 8000
             };
 
+            // Tests cant pass: Bad data
             var e7 = new Emp
             {
                 Deptno = null,
+                //Deptno = 3,
                 Empno = 6,
                 Ename = "Andrzej Kwiatkowski",
                 HireDate = DateTime.Now.AddMonths(-3),
@@ -145,6 +147,7 @@ namespace Exercise6.Tests
 
             var e8 = new Emp
             {
+                //Deptno = 3,
                 Deptno = 2,
                 Empno = 7,
                 Ename = "Marcin Polewski",

@@ -347,18 +347,24 @@ namespace Exercise6
         {
             IEnumerable<Dept> result = null;
             //result =
-            result = 
+            var tmp = 
                     Depts.Join(
-                    Emps,
-                    d => d.Deptno,
-                    e => e.Deptno,
-                    (d, e) => d
+                        Emps,
+                        dInner => dInner.Deptno,
+                        e => e.Deptno,
+                        (dInner, e) => dInner.Deptno
+                        )
+                    .GroupBy(dNum => dNum);
+            result = Depts.Where(
+                    d => tmp
+                    .Where(dGroup => dGroup.Count() == 5)
+                    .Select(dGroup => dGroup.Key)
+                    .Contains(d.Deptno) ||
+                    !tmp.Select(dG => dG.Key)
+                    .Contains(d.Deptno)
                     )
-                .GroupBy(d => d.Deptno)
-                .Where(d => d.Count() == 5 || d.Count() == 0)
-                .SelectMany(groupNo => groupNo.Select(d => d))
                 .OrderBy(d => d.Dname);
-            Console.WriteLine(result.Count());
+            //Console.WriteLine(result.Count());
             return result;
         }
     }
